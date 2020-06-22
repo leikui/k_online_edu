@@ -1,4 +1,4 @@
-package com.oyyo.serviceBse.config;
+package com.oyyo.serviceBase.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import org.mybatis.spring.annotation.MapperScan;

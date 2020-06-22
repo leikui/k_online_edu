@@ -1,4 +1,4 @@
-package com.oyyo.serviceBse.handler;
+package com.oyyo.serviceBase.handler;
 
 
 import com.oyyo.commonUtils.ExceptionUtil;

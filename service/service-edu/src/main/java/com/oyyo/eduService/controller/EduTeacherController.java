@@ -1,14 +1,13 @@
 package com.oyyo.eduService.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.oyyo.commonUtils.Resp;
 import com.oyyo.commonUtils.ResultCodeEnum;
 import com.oyyo.eduService.entity.EduTeacher;
 import com.oyyo.eduService.service.EduTeacherService;
 import com.oyyo.eduService.vo.EduTeacherVO;
-import com.oyyo.serviceBse.handler.BaseException;
+import com.oyyo.serviceBase.handler.BaseException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
