@@ -28,7 +28,7 @@ import java.util.Map;
  */
 @Api(tags = "讲师管理")
 @RestController
-@RequestMapping("/eduService/edu-teacher")
+@RequestMapping("eduService/teacher")
 public class EduTeacherController {
 
     @Autowired

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("user")
-//解决跨域
+
 public class EduUserLoginController {
 
     @PostMapping("login")
