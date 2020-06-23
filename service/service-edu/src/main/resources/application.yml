@@ -11,7 +11,7 @@ spring:
   # 数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://122.51.113.141:3306/guli_edu?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://122.51.113.141:3306/guli_edu?useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
     password: qwe_123
   jackson:
