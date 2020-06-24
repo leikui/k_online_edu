@@ -42,11 +42,11 @@ public class EduTeacherServiceImpl extends ServiceImpl<EduTeacherMapper, EduTeac
         if (!StringUtils.isEmpty(teacherVO.getEnd())) {
             wrapper.le("gmt_create", teacherVO.getEnd());
         }
-
+        wrapper.orderByDesc("gmt_modified");
         Page<EduTeacher> teacherPage = page(pageTeacher, wrapper);
         long total = teacherPage.getTotal();
         List<EduTeacher> teachers = teacherPage.getRecords();
-        Map map = new HashMap();
+        Map map = new HashMap(2);
         map.put("total", total);
         map.put("teachers", teachers);
 
