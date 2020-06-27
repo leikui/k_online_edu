@@ -46,6 +46,7 @@
         <cloud-alibaba.version>0.2.2.RELEASE</cloud-alibaba.version>
         <swagger-version>2.0.3</swagger-version>
         <project-version>0.0.1-SNAPSHOT</project-version>
+        <hutool-version>5.3.7</hutool-version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -118,7 +119,11 @@
                 <artifactId>poi-ooxml</artifactId>
                 <version>${poi.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml-schemas</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
             <!--文件上传-->
             <dependency>
                 <groupId>commons-fileupload</groupId>
@@ -219,6 +224,11 @@
                 <groupId>com.liuscoding</groupId>
                 <artifactId>common_utils</artifactId>
                 <version>${project-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool-version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

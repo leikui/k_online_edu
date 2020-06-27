@@ -4,7 +4,7 @@ import com.oyyo.commonUtils.Resp;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("eduservice/user")
 
 public class EduUserLoginController {
 

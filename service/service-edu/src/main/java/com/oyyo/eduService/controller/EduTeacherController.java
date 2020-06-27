@@ -43,11 +43,11 @@ public class EduTeacherController {
     @GetMapping("findAll")
     public Resp queryAllTeacher(){
         List<EduTeacher> eduTeachers = teacherService.list();
-        try {
-            int i = 1/0;
-        } catch (Exception e) {
-            throw new BaseException(ResultCodeEnum.UNKNOWN_REASON.getCode(),ResultCodeEnum.UNKNOWN_REASON.getMessage());
-        }
+//        try {
+//            int i = 1/0;
+//        } catch (Exception e) {
+//            throw new BaseException(ResultCodeEnum.UNKNOWN_REASON.getCode(),ResultCodeEnum.UNKNOWN_REASON.getMessage());
+//        }
         return Resp.ok().data("teacherList",eduTeachers);
     }
 
