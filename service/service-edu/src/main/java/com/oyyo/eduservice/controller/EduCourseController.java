@@ -41,9 +41,19 @@ public class EduCourseController {
     @GetMapping("getCourseInfo/{courseId}")
     public Resp queryCourseInfoByCourseId(@PathVariable("courseId") String courseId){
         CourseInfoVO courseInfoVO = courseService.queryCourseInfoByCourseId(courseId);
-        return Resp.ok();
+        return Resp.ok().data("courseInfo",courseInfoVO);
     }
 
+    /**
+     * 修改课程
+     * @param courseInfoVO
+     * @return
+     */
+    @PostMapping("updateCourseInfo")
+    public Resp updateCourseInfo(@RequestBody CourseInfoVO courseInfoVO){
+        courseService.updateCourseInfo(courseInfoVO);
+        return Resp.ok();
+    }
 
 
 }

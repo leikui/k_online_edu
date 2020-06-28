@@ -83,4 +83,30 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
         return courseInfoVO;
     }
+
+    /**
+     * 修改课程
+     * @param courseInfoVO
+     * @return
+     */
+    @Override
+    public void updateCourseInfo(CourseInfoVO courseInfoVO) {
+
+        //修改课程表
+        EduCourse eduCourse = new EduCourse();
+        BeanUtils.copyProperties(courseInfoVO,eduCourse);
+        boolean updateCourse = this.updateById(eduCourse);
+
+        if (!updateCourse) {
+            throw new BaseException(20001, "修改课程失败！");
+        }
+
+        //修改课程详情表
+        EduCourseDescription description = new EduCourseDescription();
+        BeanUtils.copyProperties(courseInfoVO,description);
+        boolean updateDescription = descriptionService.updateById(description);
+        if (!updateDescription) {
+            throw new BaseException(20001, "修改课程详情失败！");
+        }
+    }
 }
