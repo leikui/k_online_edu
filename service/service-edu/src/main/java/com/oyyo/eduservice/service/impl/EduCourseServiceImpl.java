@@ -90,6 +90,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
      * @return
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void updateCourseInfo(CourseInfoVO courseInfoVO) {
 
         //修改课程表
