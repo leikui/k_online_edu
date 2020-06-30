@@ -8,10 +8,12 @@ import com.oyyo.eduservice.service.EduChapterService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.oyyo.eduservice.service.EduVideoService;
 import com.oyyo.eduservice.vo.ChapterAndVideoVO;
+import com.oyyo.serviceBase.handler.BaseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -69,5 +71,23 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
         }).collect(Collectors.toList());
         log.info("封装数据完成，课程id为[{}]",courseId);
         return chapterAndVideoVOS;
+    }
+
+    /**
+     * 根据id删除章节
+     * @return
+     */
+    @Override
+    public Boolean deleteChapterInfo(String chapterId) {
+
+        int videoCount = videoService.count(new QueryWrapper<EduVideo>().eq("chapter_id", chapterId).orderByAsc("sort"));
+
+        if (videoCount > 0) {
+            log.info("该章节下有小节，不能删除");
+            throw new BaseException(20001, "该章节下有小节，不能删除");
+        }
+        boolean removeChapterFlag = this.removeById(chapterId);
+        log.info("已删除");
+        return removeChapterFlag;
     }
 }

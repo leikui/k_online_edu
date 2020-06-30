@@ -4,6 +4,7 @@ package com.oyyo.eduservice.controller;
 import com.oyyo.commonUtils.Resp;
 import com.oyyo.eduservice.service.EduCourseService;
 import com.oyyo.eduservice.vo.CourseInfoVO;
+import com.oyyo.eduservice.vo.CoursePublishVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,6 +54,18 @@ public class EduCourseController {
     public Resp updateCourseInfo(@RequestBody CourseInfoVO courseInfoVO){
         courseService.updateCourseInfo(courseInfoVO);
         return Resp.ok();
+    }
+
+    /**
+     * 根据课程id查询 最终发布信息
+     * @param id
+     * @return
+     */
+    @GetMapping("getPublishCourseInfo/{id}")
+    public Resp queryPublishCourseInfo(@PathVariable("id") String id){
+        CoursePublishVO publishVO = courseService.queryPublishCourseInfo(id);
+
+        return Resp.ok().data("publishCourse",publishVO);
     }
 
 

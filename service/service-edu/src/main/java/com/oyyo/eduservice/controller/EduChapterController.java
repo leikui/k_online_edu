@@ -2,13 +2,11 @@ package com.oyyo.eduservice.controller;
 
 
 import com.oyyo.commonUtils.Resp;
+import com.oyyo.eduservice.entity.EduChapter;
 import com.oyyo.eduservice.service.EduChapterService;
 import com.oyyo.eduservice.vo.ChapterAndVideoVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,6 +36,48 @@ public class EduChapterController {
         return Resp.ok().data("chapter",result);
     }
 
+
+    /**
+     * 添加章节
+     * @param chapter
+     * @return
+     */
+    @PostMapping("addChapter")
+    public Resp addChapter(@RequestBody EduChapter chapter){
+        chapterService.save(chapter);
+        return Resp.ok();
+    }
+
+    /**
+     * 根据id查询章节
+     * @return
+     */
+    @GetMapping("getChapterInfo/{chapterId}")
+    public Resp getChapterInfo(@PathVariable("chapterId") String chapterId){
+        EduChapter eduChapter = chapterService.getById(chapterId);
+        return Resp.ok().data("chapter",eduChapter);
+    }
+
+    /**
+     * 修改章节
+     * @param chapter
+     * @return
+     */
+    @PostMapping("updateChapter")
+    public Resp updateChapter(@RequestBody EduChapter chapter){
+        chapterService.updateById(chapter);
+        return Resp.ok();
+    }
+
+    /**
+     * 根据id删除章节
+     * @return
+     */
+    @DeleteMapping("{chapterId}")
+    public Resp deleteChapterInfo(@PathVariable("chapterId") String chapterId){
+        Boolean flag = chapterService.deleteChapterInfo(chapterId);
+        return flag ? Resp.ok() : Resp.error();
+    }
 
 
 }

@@ -7,6 +7,7 @@ import com.oyyo.eduservice.service.EduCourseDescriptionService;
 import com.oyyo.eduservice.service.EduCourseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.oyyo.eduservice.vo.CourseInfoVO;
+import com.oyyo.eduservice.vo.CoursePublishVO;
 import com.oyyo.serviceBase.handler.BaseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -28,6 +29,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
     @Autowired
     EduCourseDescriptionService descriptionService;
+    @Autowired EduCourseMapper courseMapper;
 
     /**
      * 添加课程
@@ -109,5 +111,18 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         if (!updateDescription) {
             throw new BaseException(20001, "修改课程详情失败！");
         }
+    }
+
+    /**
+     * 根据课程id查询 最终发布信息
+     * @param id
+     * @return
+     */
+    @Override
+    public CoursePublishVO queryPublishCourseInfo(String id) {
+        CoursePublishVO publishVO = courseMapper.queryPublishVO(id);
+
+        return publishVO;
+
     }
 }

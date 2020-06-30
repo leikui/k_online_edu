@@ -3,6 +3,7 @@ package com.oyyo.eduservice.service;
 import com.oyyo.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.oyyo.eduservice.vo.CourseInfoVO;
+import com.oyyo.eduservice.vo.CoursePublishVO;
 
 /**
  * <p>
@@ -34,4 +35,11 @@ public interface EduCourseService extends IService<EduCourse> {
      * @return
      */
     void updateCourseInfo(CourseInfoVO courseInfoVO);
+
+    /**
+     * 根据课程id查询 最终发布信息
+     * @param id
+     * @return
+     */
+    CoursePublishVO queryPublishCourseInfo(String id);
 }
