@@ -1,12 +1,22 @@
 package com.oyyo.eduservice.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.oyyo.commonUtils.Resp;
+import com.oyyo.eduservice.entity.EduCourse;
+import com.oyyo.eduservice.entity.EduTeacher;
 import com.oyyo.eduservice.service.EduCourseService;
 import com.oyyo.eduservice.vo.CourseInfoVO;
 import com.oyyo.eduservice.vo.CoursePublishVO;
+import com.oyyo.eduservice.vo.CourseQueryVO;
+import com.oyyo.eduservice.vo.EduTeacherVO;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -68,6 +78,31 @@ public class EduCourseController {
         return Resp.ok().data("publishCourse",publishVO);
     }
 
+    /**
+     * 分页查询讲师列表
+     * @param current
+     * @param limit
+     * @return
+     */
+    @ApiOperation(value = "分页查询讲师列表")
+    @PostMapping("page/{current}/{limit}")
+    public Resp queryCourseByPage(@PathVariable("current") Long current,
+                                  @PathVariable("limit")Long limit,
+                                  @RequestBody(required = false) CourseQueryVO courseQuery){
 
+        Map map = courseService.queryCourseByPage(current, limit, courseQuery);
+
+        return Resp.ok().data(map);
+    }
+
+    /**
+     * 根据id删除课程信息
+     * @return
+     */
+    @DeleteMapping("{courseId}")
+    public Resp deleteCourseInfo(@PathVariable("courseId") String courseId){
+        boolean delFlag = courseService.deleteCourseInfo(courseId);
+        return delFlag ? Resp.ok() : Resp.error();
+    }
 }
 

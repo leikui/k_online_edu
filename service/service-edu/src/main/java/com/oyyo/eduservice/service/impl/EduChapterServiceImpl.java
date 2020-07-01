@@ -13,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -89,5 +88,15 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
         boolean removeChapterFlag = this.removeById(chapterId);
         log.info("已删除");
         return removeChapterFlag;
+    }
+
+    /**
+     * 根据 课程id 删除章节
+     * @param courseId
+     * @return
+     */
+    @Override
+    public boolean deleteChapterByCourseId(String courseId) {
+        return this.remove(new QueryWrapper<EduChapter>().eq("course_id", courseId));
     }
 }

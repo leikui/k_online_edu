@@ -4,6 +4,9 @@ import com.oyyo.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.oyyo.eduservice.vo.CourseInfoVO;
 import com.oyyo.eduservice.vo.CoursePublishVO;
+import com.oyyo.eduservice.vo.CourseQueryVO;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -42,4 +45,18 @@ public interface EduCourseService extends IService<EduCourse> {
      * @return
      */
     CoursePublishVO queryPublishCourseInfo(String id);
+
+    /**
+     * 分页查询讲师列表
+     * @param current
+     * @param limit
+     * @return
+     */
+    Map queryCourseByPage(Long current, Long limit, CourseQueryVO courseQueryVO);
+
+    /**
+     * 根据id删除课程信息
+     * @return
+     */
+    boolean deleteCourseInfo(String courseId);
 }
