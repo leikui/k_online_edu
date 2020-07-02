@@ -1,0 +1,15 @@
+server:
+  port: 8003
+spring:
+  application:
+    name: service-vod
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: 1024MB # 设置单个文件上传大小
+      max-request-size: 1024MB #单次总上传文件总大小
+
+
+
+# 阿里云 vod
