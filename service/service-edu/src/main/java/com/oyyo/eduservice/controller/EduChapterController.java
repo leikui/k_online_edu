@@ -26,7 +26,7 @@ public class EduChapterController {
     private EduChapterService chapterService;
 
     /**
-     * 根据课程id课程大纲列表
+     * 根据课程id 查询课程大纲列表
      * @param courseId
      * @return
      */

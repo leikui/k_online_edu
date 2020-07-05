@@ -47,6 +47,7 @@
         <swagger-version>2.0.3</swagger-version>
         <project-version>0.0.1-SNAPSHOT</project-version>
         <hutool-version>5.3.7</hutool-version>
+        <nacos.version>0.9.0.RELEASE</nacos.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -54,9 +55,15 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Hoxton.RELEASE</version>
+                <version>Hoxton.SR5</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <!--nacos 配置中心-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+                <version>${nacos.version}</version>
             </dependency>
 
             <dependency>

@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: service-oss
+  cloud:
+    nacos:
+      config:
+        server-addr: 122.51.113.141:8848
+        namespace: e85b3b84-8050-4c14-aff4-fef6c9d9415a
+        group: dev
+        file-extension: yml
+      discovery:
+        server-addr: ${spring.cloud.nacos.config.server-addr}

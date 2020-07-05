@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: service-vod
+  cloud:
+    nacos:
+      config:
+        server-addr: 122.51.113.141:8848
+        namespace: 166e4651-233c-43ed-8c43-7679fce5a318
+        group: dev
+        file-extension: yml
+      discovery:
+        server-addr: ${spring.cloud.nacos.config.server-addr}

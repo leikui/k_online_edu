@@ -12,6 +12,7 @@ import com.oyyo.eduservice.vo.CourseQueryVO;
 import com.oyyo.eduservice.vo.EduTeacherVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -31,7 +32,7 @@ import java.util.Map;
 public class EduCourseController {
 
     @Autowired
-    EduCourseService courseService;
+    private EduCourseService courseService;
 
     /**
      * 添加课程
@@ -79,6 +80,18 @@ public class EduCourseController {
     }
 
     /**
+     * 发布课程
+     * @param id
+     * @return
+     */
+    @PostMapping("publishCourse/{id}")
+    public Resp publishCourse(@PathVariable("id")String id){
+
+        courseService.publishCourse(id);
+        return Resp.ok();
+    }
+
+    /**
      * 分页查询讲师列表
      * @param current
      * @param limit
@@ -102,7 +115,19 @@ public class EduCourseController {
     @DeleteMapping("{courseId}")
     public Resp deleteCourseInfo(@PathVariable("courseId") String courseId){
         boolean delFlag = courseService.deleteCourseInfo(courseId);
+
         return delFlag ? Resp.ok() : Resp.error();
+    }
+
+    /**
+     * 查询 前 8 条热门 课程，4条名师
+     * @return
+     */
+    @GetMapping("hotIndex")
+    public Resp queryHotTeacherAndCourse(){
+
+        Map<String,Object> map = courseService.queryHotTeacherAndCourse();
+        return Resp.ok().data("hotCourse",map.get("hotCourse")).data("hotTeacher",map.get("hotTeacher"));
     }
 }
 

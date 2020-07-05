@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: service-edu
+  cloud:
+    nacos:
+      config:
+        server-addr: 122.51.113.141:8848
+        namespace: f06c0a9a-afab-4254-81c2-e3da4c7c050e
+        group: dev
+        file-extension: yml
+      discovery:
+        server-addr: ${spring.cloud.nacos.config.server-addr}

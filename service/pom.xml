@@ -15,29 +15,37 @@
         <module>service-edu</module>
         <module>service_oss</module>
         <module>service_vod</module>
+        <module>service_vod_interface</module>
+        <module>service_cms</module>
     </modules>
     <dependencies>
-        <!--<dependency>
+        <dependency>
               <groupId>org.springframework.cloud</groupId>
               <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-          </dependency>-->
+          </dependency>
 
-        <!--hystrix依赖，主要是用  @HystrixCommand -->
-        <!--<dependency>
+        <!--hystrix依赖，主要是用  @HystrixCommand-->
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-        </dependency>-->
+<!--            <version>2.2.3.RELEASE</version>-->
+        </dependency>
 
         <!--服务注册-->
-        <!-- <dependency>
+         <dependency>
              <groupId>org.springframework.cloud</groupId>
              <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-         </dependency>-->
+         </dependency>
+        <!--nacos 配置中心-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
         <!--服务调用-->
-        <!-- <dependency>
+         <dependency>
              <groupId>org.springframework.cloud</groupId>
              <artifactId>spring-cloud-starter-openfeign</artifactId>
-         </dependency>-->
+         </dependency>
 
         <dependency>
             <groupId>com.oyyo</groupId>

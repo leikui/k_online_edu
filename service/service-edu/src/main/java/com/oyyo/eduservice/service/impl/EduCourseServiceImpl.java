@@ -1,15 +1,14 @@
 package com.oyyo.eduservice.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.oyyo.eduservice.entity.EduCourse;
 import com.oyyo.eduservice.entity.EduCourseDescription;
+import com.oyyo.eduservice.entity.EduTeacher;
 import com.oyyo.eduservice.mapper.EduCourseMapper;
-import com.oyyo.eduservice.service.EduChapterService;
-import com.oyyo.eduservice.service.EduCourseDescriptionService;
-import com.oyyo.eduservice.service.EduCourseService;
+import com.oyyo.eduservice.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.oyyo.eduservice.service.EduVideoService;
 import com.oyyo.eduservice.vo.CourseInfoVO;
 import com.oyyo.eduservice.vo.CoursePublishVO;
 import com.oyyo.eduservice.vo.CourseQueryVO;
@@ -18,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,6 +45,11 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     private EduVideoService videoService;
     @Autowired
     private EduChapterService chapterService;
+    @Autowired
+    private EduTeacherService teacherService;
+    @Autowired
+    private StringRedisTemplate redisTemplate;
+
 
     /**
      * 添加课程
@@ -141,6 +146,9 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
     }
 
+
+
+
     /**
      * 分页查询讲师列表
      * @param current
@@ -198,5 +206,62 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
             throw new BaseException(20001, "删除课程失败！");
         }
         return true;
+    }
+
+    /**
+     * 发布课程
+     * @param id
+     */
+    @Override
+    public void publishCourse(String id) {
+        EduCourse eduCourse = new EduCourse();
+        eduCourse.setId(id);
+        eduCourse.setStatus("Normal");
+        boolean update = this.updateById(eduCourse);
+        if (update) {
+            log.info("课程发布成功！");
+        }else {
+            throw new BaseException(20001, "课程发布失败");
+        }
+    }
+
+    /**
+     * 查询 前 8 条热门 课程，4条名师
+     * @return
+     */
+    @Override
+    public Map<String, Object> queryHotTeacherAndCourse() {
+
+        String courseList1 = redisTemplate.opsForValue().get("courseList");
+        String teacherList1 = redisTemplate.opsForValue().get("teacherList");
+
+        if (!StringUtils.isEmpty(courseList1) && !StringUtils.isEmpty(teacherList1)) {
+            List<EduCourse> courses = JSON.parseArray(courseList1, EduCourse.class);
+            List<EduTeacher> EduTeacher = JSON.parseArray(teacherList1, EduTeacher.class);
+            Map<String, Object> map = new HashMap<>();
+            map.put("hotCourse", courses);
+            map.put("hotTeacher", EduTeacher);
+
+            return map;
+        }
+        log.info("查询 8 条热门课程");
+        QueryWrapper<EduCourse> courseQueryWrapper = new QueryWrapper<>();
+        courseQueryWrapper.last("limit 8");
+        courseQueryWrapper.orderByDesc("view_count");
+        List<EduCourse> courseList = this.list(courseQueryWrapper);
+        log.info("查询4条名师");
+        QueryWrapper<EduTeacher> teacherWrapper = new QueryWrapper<>();
+        teacherWrapper.last("limit 4");
+        teacherWrapper.orderByAsc("sort");
+        List<EduTeacher> teacherList = teacherService.list(teacherWrapper);
+
+        redisTemplate.opsForValue().set("courseList", JSON.toJSONString(courseList));
+        redisTemplate.opsForValue().set("teacherList", JSON.toJSONString(teacherList));
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("hotCourse", courseList);
+        map.put("hotTeacher", teacherList);
+
+        return map;
     }
 }

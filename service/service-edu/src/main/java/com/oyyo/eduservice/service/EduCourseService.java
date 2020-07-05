@@ -59,4 +59,16 @@ public interface EduCourseService extends IService<EduCourse> {
      * @return
      */
     boolean deleteCourseInfo(String courseId);
+
+    /**
+     * 发布课程
+     * @param id
+     */
+    void publishCourse(String id);
+
+    /**
+     * 查询 前 8 条热门 课程，4条名师
+     * @return
+     */
+    Map<String, Object> queryHotTeacherAndCourse();
 }

@@ -20,6 +20,11 @@
         <groupId>cn.hutool</groupId>
         <artifactId>hutool-all</artifactId>
     </dependency>
+    <dependency>
+        <groupId>com.oyyo</groupId>
+        <artifactId>service_vod_interface</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </dependency>
 
 </dependencies>
 

@@ -2,9 +2,13 @@ package com.oyyo.vod.controller;
 
 import com.oyyo.commonUtils.Resp;
 import com.oyyo.vod.service.VodService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/eduvod/video")
@@ -35,4 +39,18 @@ public class VodController {
         vodService.deleteAliyunVideoByVideoId(id);
         return  Resp.ok();
     }
+
+    /**
+     * 根据 视频 id 批量删除视频
+     * @param ids
+     * @return
+     */
+    @DeleteMapping("deleteVideo")
+    public Resp deleteAliyunVideoByBatch(List<String> ids){
+
+        vodService.deleteAliyunVideoByVideoId(StringUtils.join(ids,","));
+        return  Resp.ok();
+    }
+
+
 }
