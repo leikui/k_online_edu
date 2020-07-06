@@ -1,11 +1,11 @@
 spring:
   application:
-    name: service-cms
+    name: service-sms
   cloud:
     nacos:
       config:
         server-addr: 122.51.113.141:8848
-        namespace: 2dea0edd-73b4-42a8-93af-b232689297c4
+        namespace: 7a356a5b-0cd6-45ef-a971-5906553c1cab
         group: dev
         file-extension: yml
       discovery:

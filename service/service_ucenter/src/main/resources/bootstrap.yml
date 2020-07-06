@@ -1,11 +1,11 @@
 spring:
   application:
-    name: service-cms
+    name: service-ucenter
   cloud:
     nacos:
       config:
         server-addr: 122.51.113.141:8848
-        namespace: 2dea0edd-73b4-42a8-93af-b232689297c4
+        namespace: b6097583-4c8e-417a-85ca-041b6a45a266
         group: dev
         file-extension: yml
       discovery:
