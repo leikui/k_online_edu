@@ -1,16 +1,15 @@
 package com.oyyo.ucenter.controller;
 
 
+import com.oyyo.commonUtils.JwtUtils;
 import com.oyyo.commonUtils.Resp;
 import com.oyyo.ucenter.entity.Member;
 import com.oyyo.ucenter.service.MemberService;
 import com.oyyo.ucenter.vo.RegisterVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -49,6 +48,18 @@ public class MemberController {
         boolean regFlag = memberService.register(registerVO);
 
         return regFlag ? Resp.ok() : Resp.error().message("注册失败");
+    }
+
+    /**
+     * 查询用户信息
+     * @param request
+     * @return
+     */
+    @GetMapping("getUserInfo")
+    public Resp queryUserInfo(HttpServletRequest request){
+
+        Member member = memberService.queryUserInfo(request);
+        return Resp.ok().data("userInfo",member);
     }
 
 }

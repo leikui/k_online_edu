@@ -3,10 +3,7 @@ package com.oyyo.sms.controller;
 import com.oyyo.commonUtils.Resp;
 import com.oyyo.sms.service.SmsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @ClassName: SmsController
@@ -27,7 +24,7 @@ public class SmsController {
      * @param phone
      * @return
      */
-    @PostMapping("sendSms/{phone}")
+    @GetMapping("sendSms/{phone}")
     public Resp sendRegisterSms(@PathVariable("phone")String phone){
         boolean isSend = smsService.sendRegisterSms(phone);
         return isSend ? Resp.ok() : Resp.ok().message("短信发送失败");

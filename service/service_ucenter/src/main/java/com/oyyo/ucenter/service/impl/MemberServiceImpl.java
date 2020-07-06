@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
 /**
@@ -121,5 +122,21 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         member.setIsDisabled(false);
 
         return this.save(member);
+    }
+
+    /**
+     * 查询用户信息
+     * @param request
+     * @return
+     */
+    @Override
+    public Member queryUserInfo(HttpServletRequest request) {
+        String token = JwtUtils.getMemberIdByJwtToken(request);
+        Member member = this.getById(token);
+        //过滤用户信息
+        member.setPassword(null);
+        member.setSalt(null);
+        member.setIsDeleted(null);
+        return member;
     }
 }

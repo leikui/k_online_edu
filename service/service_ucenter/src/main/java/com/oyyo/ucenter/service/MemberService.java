@@ -4,6 +4,8 @@ import com.oyyo.ucenter.entity.Member;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.oyyo.ucenter.vo.RegisterVO;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * <p>
  * 会员表 服务类
@@ -27,4 +29,11 @@ public interface MemberService extends IService<Member> {
      * @return
      */
     boolean register(RegisterVO registerVO);
+
+    /**
+     * 查询用户信息
+     * @param request
+     * @return
+     */
+    Member queryUserInfo(HttpServletRequest request);
 }
