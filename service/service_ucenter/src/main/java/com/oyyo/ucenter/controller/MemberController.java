@@ -59,7 +59,7 @@ public class MemberController {
     public Resp queryUserInfo(HttpServletRequest request){
 
         Member member = memberService.queryUserInfo(request);
-        return Resp.ok().data("userInfo",member);
+            return Resp.ok().data("userInfo",member);
     }
 
 }

@@ -1,0 +1,8 @@
+wx:
+  open:
+    # 微信开放平台 appid
+    appid: wxed9954c01bb89b47
+    # 微信开放平台 appsecret
+    appsecret: a7482517235173ddb4083788de60b90e
+    # 微信开放平台 重定向url（guli.shop需要在微信开放平台配置）
+    redirecturl: http://guli.shop/api/ucenter/wx/callback
