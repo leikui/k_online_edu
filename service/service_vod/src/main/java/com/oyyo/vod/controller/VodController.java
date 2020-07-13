@@ -52,5 +52,15 @@ public class VodController {
         return  Resp.ok();
     }
 
+    /**
+     * 根据视频id获取播放凭证
+     * @param videoId
+     * @return
+     */
+        @GetMapping("getPlayerAuth/{videoId}")
+    public Resp getPlayerAuth(@PathVariable("videoId")String videoId){
+        String auth = vodService.getPlayerAuth(videoId);
+        return Resp.ok().data("auth", auth);
+    }
 
 }

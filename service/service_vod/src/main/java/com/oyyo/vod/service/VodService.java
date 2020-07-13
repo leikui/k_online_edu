@@ -15,4 +15,11 @@ public interface VodService {
      * @param id
      */
     void deleteAliyunVideoByVideoId(String id);
+
+    /**
+     * 根据视频id 获取播放凭证
+     * @param videoId
+     * @return
+     */
+    String getPlayerAuth(String videoId);
 }

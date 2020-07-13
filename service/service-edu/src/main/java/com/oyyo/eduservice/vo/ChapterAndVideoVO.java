@@ -16,6 +16,7 @@ import java.util.List;
 public class ChapterAndVideoVO {
     private String id;
     private String title;
+    private String videoSourceId;
     private List<ChapterAndVideoVO> children;
 
 }

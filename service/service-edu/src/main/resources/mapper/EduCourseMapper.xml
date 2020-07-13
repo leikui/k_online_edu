@@ -3,6 +3,7 @@
 <mapper namespace="com.oyyo.eduservice.mapper.EduCourseMapper">
 
 
+    <!--查询课程发布信息-->
     <select id="queryPublishVO" resultType="com.oyyo.eduservice.vo.CoursePublishVO">
         SELECT
                 c.id,
@@ -20,6 +21,36 @@
                 LEFT JOIN edu_subject s2 ON c.subject_id = s2.id
             WHERE
                 c.id = #{id}
+    </select>
+
+    <!--查询课程详情-->
+    <select id="queryCourseInfoAndTeacher" resultType="com.oyyo.eduservice.vo.CourseWebVo">
+        SELECT
+            c.id  AS id,
+            c.title,
+            c.cover,
+            c.lesson_num AS lessonNum,
+            CONVERT(c.price, DECIMAL(8,2)) AS price,
+            c.buy_count AS  buyCount,
+            c.view_count  AS viewCount,
+            ecd.description,
+            s1.id  AS subjectLevelOneId,
+            s1.title AS subjectLevelOne,
+            s2.id  AS subjectLevelTwoId,
+            s2.title AS subjectLevelTwo,
+            t.name AS teacherName,
+            t.id AS teacherId,
+            t.intro,
+            t.avatar
+
+        FROM
+            edu_course c
+                LEFT JOIN edu_course_description ecd ON c.id = ecd.id
+                LEFT JOIN edu_teacher t ON c.teacher_id = t.id
+                LEFT JOIN edu_subject s1 ON c.subject_parent_id = s1.id
+                LEFT JOIN edu_subject s2 ON c.subject_id = s2.id
+        WHERE
+                c.id = #{courseId}
     </select>
 
 
