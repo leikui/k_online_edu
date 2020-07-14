@@ -9,13 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>service_ucenter</artifactId>
-
+    <artifactId>service_ucenter_interface</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.oyyo</groupId>
-            <artifactId>service_ucenter_interface</artifactId>
+            <artifactId>common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

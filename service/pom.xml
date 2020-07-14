@@ -20,6 +20,9 @@
         <module>service_sms</module>
         <module>service_ucenter</module>
         <module>service_sms_interface</module>
+        <module>service_order</module>
+        <module>service_ucenter_interface</module>
+        <module>service_edu_interface</module>
     </modules>
     <dependencies>
         <dependency>

@@ -1,7 +1,6 @@
 package com.oyyo.ucenter.controller;
 
 
-import com.oyyo.commonUtils.JwtUtils;
 import com.oyyo.commonUtils.Resp;
 import com.oyyo.ucenter.entity.Member;
 import com.oyyo.ucenter.service.MemberService;
@@ -60,6 +59,17 @@ public class MemberController {
 
         Member member = memberService.queryUserInfo(request);
             return Resp.ok().data("userInfo",member);
+    }
+
+    /**
+     * 根据id获取用户信息
+     * @param id
+     * @return
+     */
+    @PostMapping("getUserInfo/{id}")
+    public Resp getUserInfo(@PathVariable("id")String id){
+        Member member = memberService.getById(id);
+        return Resp.ok().data("member", member);
     }
 
 }
