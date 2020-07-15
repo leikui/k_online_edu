@@ -25,7 +25,11 @@
         <artifactId>service_vod_interface</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </dependency>
-
+    <dependency>
+        <groupId>com.oyyo</groupId>
+        <artifactId>service_edu_interface</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </dependency>
 </dependencies>
 
 </project>
