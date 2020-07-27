@@ -1,7 +1,9 @@
 package com.oyyo.eduservice.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.oyyo.commonUtils.Resp;
+import com.oyyo.eduservice.entity.EduSubject;
 import com.oyyo.eduservice.service.EduSubjectService;
 import com.oyyo.eduservice.vo.SubjectVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +52,14 @@ public class EduSubjectController {
         List<SubjectVO> subjectVOS = subjectService.querySubject();
 
         return Resp.ok().data("tree",subjectVOS);
+    }
+    @GetMapping("getAllSubject")
+    public Resp queryOneSubject(){
+
+        List<EduSubject> oneSubject = subjectService.list(new QueryWrapper<EduSubject>().eq("parent_id", "0"));
+        List<EduSubject> twoSubject = subjectService.list(new QueryWrapper<EduSubject>().ne("parent_id", "0"));
+
+        return Resp.ok().data("oneSubject",oneSubject).data("twoSubject",twoSubject);
     }
 
 }

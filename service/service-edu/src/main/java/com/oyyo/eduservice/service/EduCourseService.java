@@ -2,6 +2,7 @@ package com.oyyo.eduservice.service;
 
 import com.oyyo.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.oyyo.eduservice.vo.CourseInfoQueryVO;
 import com.oyyo.eduservice.vo.CourseInfoVO;
 import com.oyyo.eduservice.vo.CoursePublishVO;
 import com.oyyo.eduservice.vo.CourseQueryVO;
@@ -71,4 +72,17 @@ public interface EduCourseService extends IService<EduCourse> {
      * @return
      */
     Map<String, Object> queryHotTeacherAndCourse();
+
+    /**
+     * 条件查询课程
+     * @return
+     */
+    Map<String, Object> queryCourseByProtal(Long current, Long limit, CourseInfoQueryVO courseQueryVO);
+
+    /**
+     * 查询课程详情
+     * @param courseId
+     * @return
+     */
+    Map<String, Object> queryCourseInfoAndTeacher(String courseId);
 }

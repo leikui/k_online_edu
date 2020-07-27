@@ -6,6 +6,8 @@ import com.aliyun.vod.upload.resp.UploadStreamResponse;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.vod.model.v20170321.DeleteVideoRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
 import com.oyyo.serviceBase.handler.BaseException;
 import com.oyyo.vod.service.VodService;
 import com.oyyo.vod.utils.ConstantVodPropertiesUtil;
@@ -65,6 +67,29 @@ public class VodServiceImpl implements VodService {
             e.printStackTrace();
             throw new BaseException(20001, "删除视频失败");
         }
+    }
+
+    /**
+     * 根据视频id 获取播放凭证
+     * @param videoId
+     * @return
+     */
+    @Override
+    public String getPlayerAuth(String videoId) {
+        try {
+            //初始化 客户端 client
+            DefaultAcsClient client = InitVodClient.initVodClient(ConstantVodPropertiesUtil.ACCESS_ID, ConstantVodPropertiesUtil.ACCESS_KEY);
+            GetVideoPlayAuthRequest authRequest = new GetVideoPlayAuthRequest();
+            authRequest.setVideoId(videoId);
+            GetVideoPlayAuthResponse acsResponse = client.getAcsResponse(authRequest);
+            log.info("获取视频 id 为：[{}] 的播放凭证",videoId);
+            String auth = acsResponse.getPlayAuth();
+            log.info("视频id 为：[{}] 的播放凭证为：[{}]",videoId,auth);
+            return auth;
+        } catch (ClientException e) {
+            throw new BaseException(20001, "获取视频播放凭证失败");
+        }
+
     }
 
     /**

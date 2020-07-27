@@ -6,10 +6,7 @@ import com.oyyo.commonUtils.Resp;
 import com.oyyo.eduservice.entity.EduCourse;
 import com.oyyo.eduservice.entity.EduTeacher;
 import com.oyyo.eduservice.service.EduCourseService;
-import com.oyyo.eduservice.vo.CourseInfoVO;
-import com.oyyo.eduservice.vo.CoursePublishVO;
-import com.oyyo.eduservice.vo.CourseQueryVO;
-import com.oyyo.eduservice.vo.EduTeacherVO;
+import com.oyyo.eduservice.vo.*;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -128,6 +125,33 @@ public class EduCourseController {
 
         Map<String,Object> map = courseService.queryHotTeacherAndCourse();
         return Resp.ok().data("hotCourse",map.get("hotCourse")).data("hotTeacher",map.get("hotTeacher"));
+    }
+
+    /**
+     * 条件查询课程
+     * @return
+     */
+    @PostMapping("queryCourseByProtal/{current}/{limit}")
+    public Resp queryCourseByProtal(@PathVariable("current") Long current,
+                                    @PathVariable("limit")Long limit,
+                                    @RequestBody(required = false) CourseInfoQueryVO courseQueryVO){
+
+        Map<String,Object> map = courseService.queryCourseByProtal(current, limit, courseQueryVO);
+
+        return Resp.ok().data(map);
+    }
+
+
+    /**
+     * 查询课程详情
+     * @param courseId
+     * @return
+     */
+    @GetMapping("getCourseInfoAndTeacher/{courseId}")
+    public Resp queryCourseInfoAndTeacher(@PathVariable("courseId")String courseId){
+        Map<String,Object> result = courseService.queryCourseInfoAndTeacher(courseId);
+
+        return Resp.ok().data(result);
     }
 }
 

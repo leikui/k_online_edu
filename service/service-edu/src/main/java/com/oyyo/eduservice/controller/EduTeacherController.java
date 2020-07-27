@@ -1,9 +1,12 @@
 package com.oyyo.eduservice.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.oyyo.commonUtils.Resp;
+import com.oyyo.eduservice.entity.EduCourse;
 import com.oyyo.eduservice.entity.EduTeacher;
+import com.oyyo.eduservice.service.EduCourseService;
 import com.oyyo.eduservice.service.EduTeacherService;
 import com.oyyo.eduservice.vo.EduTeacherVO;
 import io.swagger.annotations.Api;
@@ -31,6 +34,8 @@ public class EduTeacherController {
 
     @Autowired
     private EduTeacherService teacherService;
+    @Autowired
+    private EduCourseService courseService;
 
 
     /**
@@ -96,7 +101,8 @@ public class EduTeacherController {
     @GetMapping("queryTeacher/{id}")
     public Resp queryTeacherById(@PathVariable("id") Long id){
         EduTeacher teacher = teacherService.getById(id);
-        return Resp.ok().data("teacher",teacher);
+        List<EduCourse> courseList = courseService.list(new QueryWrapper<EduCourse>().eq("teacher_id", id));
+        return Resp.ok().data("teacher",teacher).data("courseList",courseList);
     }
 
     /**

@@ -9,9 +9,7 @@ import com.oyyo.eduservice.entity.EduTeacher;
 import com.oyyo.eduservice.mapper.EduCourseMapper;
 import com.oyyo.eduservice.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.oyyo.eduservice.vo.CourseInfoVO;
-import com.oyyo.eduservice.vo.CoursePublishVO;
-import com.oyyo.eduservice.vo.CourseQueryVO;
+import com.oyyo.eduservice.vo.*;
 import com.oyyo.serviceBase.handler.BaseException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -262,6 +260,55 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         map.put("hotCourse", courseList);
         map.put("hotTeacher", teacherList);
 
+        return map;
+    }
+
+    /**
+     * 条件查询课程
+     * @return
+     */
+    @Override
+    public Map<String, Object> queryCourseByProtal(Long current, Long limit, CourseInfoQueryVO courseQueryVO) {
+        Page<EduCourse> coursePage = new Page<>(current, limit);
+
+        QueryWrapper<EduCourse> wrapper = new QueryWrapper<>();
+        if (!StringUtils.isEmpty(courseQueryVO.getSubjectParentId())) {
+            wrapper.eq("subject_parent_id", courseQueryVO.getSubjectParentId());
+        }
+        if (!StringUtils.isEmpty(courseQueryVO.getSubjectId())) {
+            wrapper.eq("subject_id", courseQueryVO.getSubjectParentId());
+        }
+        if (!StringUtils.isEmpty(courseQueryVO.getBuyCountSort())) {
+            wrapper.orderByDesc("buy_count", courseQueryVO.getBuyCountSort());
+        }
+        if (!StringUtils.isEmpty(courseQueryVO.getGmtCreateSort())) {
+            wrapper.orderByDesc("gmt_create", courseQueryVO.getGmtCreateSort());
+        }
+        if (!StringUtils.isEmpty(courseQueryVO.getPriceSort())) {
+            wrapper.orderByDesc("price", courseQueryVO.getPriceSort());
+        }
+
+        Page<EduCourse> page = this.page(coursePage, wrapper);
+        Map map = new HashMap();
+        map.put("total", page.getTotal());
+        map.put("courseList", page.getRecords());
+
+        return map;
+    }
+
+    /**
+     * 查询课程详情
+     * @param courseId
+     * @return
+     */
+    @Override
+    public Map<String, Object> queryCourseInfoAndTeacher(String courseId) {
+        List<ChapterAndVideoVO> chapterVideo = chapterService.queryChapterVideo(courseId);
+        CourseWebVo courseWebVo = courseMapper.queryCourseInfoAndTeacher(courseId);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("chapters", chapterVideo);
+        map.put("courseWebVo", courseWebVo);
         return map;
     }
 }
