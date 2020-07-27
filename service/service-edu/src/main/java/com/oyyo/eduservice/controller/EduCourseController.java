@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -148,8 +149,8 @@ public class EduCourseController {
      * @return
      */
     @GetMapping("getCourseInfoAndTeacher/{courseId}")
-    public Resp queryCourseInfoAndTeacher(@PathVariable("courseId")String courseId){
-        Map<String,Object> result = courseService.queryCourseInfoAndTeacher(courseId);
+    public Resp queryCourseInfoAndTeacher(@PathVariable("courseId")String courseId, HttpServletRequest request){
+        Map<String,Object> result = courseService.queryCourseInfoAndTeacher(courseId,request);
 
         return Resp.ok().data(result);
     }

@@ -11,6 +11,6 @@ public interface EduApi {
      * @param courseId
      * @return
      */
-    @GetMapping("getCourseInfoAndTeacher/{courseId}")
+    @GetMapping("eduService/course/getCourseInfoAndTeacher/{courseId}")
     Resp queryCourseInfoAndTeacher(@PathVariable("courseId") String courseId);
 }

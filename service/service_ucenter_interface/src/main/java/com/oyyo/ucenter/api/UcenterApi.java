@@ -13,6 +13,6 @@ public interface UcenterApi {
      * @param id
      * @return
      */
-    @PostMapping("getUserInfo/{id}")
+    @PostMapping("edu/ucenter/member/getUserInfo/{id}")
     Resp getUserInfo(@PathVariable("id")String id);
 }

@@ -3,9 +3,12 @@ package com.oyyo.eduservice.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.oyyo.commonUtils.JwtUtils;
+import com.oyyo.commonUtils.Resp;
 import com.oyyo.eduservice.entity.EduCourse;
 import com.oyyo.eduservice.entity.EduCourseDescription;
 import com.oyyo.eduservice.entity.EduTeacher;
+import com.oyyo.eduservice.feign.ServiceOrderClient;
 import com.oyyo.eduservice.mapper.EduCourseMapper;
 import com.oyyo.eduservice.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -19,6 +22,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +51,8 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     private EduTeacherService teacherService;
     @Autowired
     private StringRedisTemplate redisTemplate;
+    @Autowired
+    private ServiceOrderClient orderClient;
 
 
     /**
@@ -299,16 +305,22 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     /**
      * 查询课程详情
      * @param courseId
+     * @param request
      * @return
      */
     @Override
-    public Map<String, Object> queryCourseInfoAndTeacher(String courseId) {
+    public Map<String, Object> queryCourseInfoAndTeacher(String courseId, HttpServletRequest request) {
         List<ChapterAndVideoVO> chapterVideo = chapterService.queryChapterVideo(courseId);
         CourseWebVo courseWebVo = courseMapper.queryCourseInfoAndTeacher(courseId);
-
         Map<String, Object> map = new HashMap<>();
         map.put("chapters", chapterVideo);
         map.put("courseWebVo", courseWebVo);
+        //根据 课程id 和 用户id 远程调用查询 课程是否购买
+        String memberId = JwtUtils.getMemberIdByJwtToken(request);
+        if (!StringUtils.isEmpty(memberId)) {
+            Resp resp = orderClient.courseIsBuy(courseId, memberId);
+            map.put("isBuy", resp.getData().get("isBuy"));
+        }
         return map;
     }
 }

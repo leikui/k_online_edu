@@ -7,6 +7,7 @@ import com.oyyo.eduservice.vo.CourseInfoVO;
 import com.oyyo.eduservice.vo.CoursePublishVO;
 import com.oyyo.eduservice.vo.CourseQueryVO;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -82,7 +83,8 @@ public interface EduCourseService extends IService<EduCourse> {
     /**
      * 查询课程详情
      * @param courseId
+     * @param request
      * @return
      */
-    Map<String, Object> queryCourseInfoAndTeacher(String courseId);
+    Map<String, Object> queryCourseInfoAndTeacher(String courseId, HttpServletRequest request);
 }

@@ -23,6 +23,7 @@
         <module>service_order</module>
         <module>service_ucenter_interface</module>
         <module>service_edu_interface</module>
+        <module>service_order_interface</module>
     </modules>
     <dependencies>
         <dependency>
