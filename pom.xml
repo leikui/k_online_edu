@@ -30,7 +30,7 @@
         <poi.version>4.1.2</poi.version>
         <commons-fileupload.version>1.4</commons-fileupload.version>
         <commons-io.version>2.7</commons-io.version>
-        <httpclient.version>4.5.12</httpclient.version>
+        <httpclient.version>4.5.13</httpclient.version>
         <jwt.version>0.9.1</jwt.version>
         <aliyun-java-sdk-core.version>4.5.2</aliyun-java-sdk-core.version>
         <aliyun-sdk-oss.version>3.1.0</aliyun-sdk-oss.version>
